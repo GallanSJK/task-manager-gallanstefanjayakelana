@@ -14,5 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
+});
+
+Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
+
+    // with fortify auth middleware
+    Route::get('home', function () {
+        return view('home');
+    }) ->middleware(['auth']); // fortify auth middleware
+
 });
