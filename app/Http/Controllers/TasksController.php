@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tasks;
-use Auth;
 use File;
 use Faker;
 
@@ -18,7 +17,7 @@ class TasksController extends Controller
             'status' => false,
             'task_id' => null,
         ];
-        $task = Tasks::where('user_id',Auth::user()->id)->find($request->task_id);
+        $task = Tasks::where('user_id',auth()->user()->id)->find($request->task_id);
         if ($task) {
             $task = Tasks::find($request->task_id);
             if ($task->file != null) {
@@ -33,14 +32,14 @@ class TasksController extends Controller
     }
     public function show(request $request){
         if ($request->task_id == null) {
-            return redirect('user/home');
+            return redirect('home');
         }
-        $task = Tasks::where('user_id',Auth::user()->id)->find($request->task_id);
+        $task = Tasks::where('user_id',auth()->user()->id)->find($request->task_id);
         if ($task) {
             $task = Tasks::find($request->task_id);
-            return view('user.task.task',compact('task'));
+            return view('user.task.tasks',compact('task'));
         }
-        return redirect('user/home');
+        return redirect('home');
     }
     public function create(){
         return view('user.task.create');
@@ -62,7 +61,7 @@ class TasksController extends Controller
         }
 
         $task = Tasks::create([
-            'user_id'=>Auth::user()->id,
+            'user_id'=>auth()->user()->id,
             'name'=>$request->name,
             'description'=>$request->description,
             'file'=>$filename,

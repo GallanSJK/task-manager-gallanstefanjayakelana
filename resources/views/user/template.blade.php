@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
+    <title>Task Manager-Gallan Stefan Jayakelana</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -23,7 +23,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            background: url({{asset('white-texture.jpg')}});
+            background: url({{asset('blue.png')}});
         }
         .label-book{
             font-size: 22px;
@@ -61,9 +61,15 @@
 <body>
     <div class="row">
         <div class="col-sm-4">
-            <p class="mt-4 green-primary text-white p-2 fw-bold label-book">Hello <span style="color: rgb(225, 228, 50)">{{ auth()->user()->name }}</span></p>
+            <p class="mt-4 green-primary text-white p-2 fw-bold label-book">Selamat Datang <span style="color: rgb(225, 228, 50); margin-right: 5px;">{{ auth()->user()->name }}</span>
+                <a href="{{ route('logout') }}" style="cursor: pointer" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();" class="btn btn-md btn-danger">LOGOUT</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </p>
             <div class="container text-end">
-                <a href="{{ asset('user/task/create') }}" class="btn btn-primary green-primary ">Buat Tugas Baru</a>
+                <a href="{{ asset('user/task/create') }}" class="btn btn-primary">Buat Tugas Baru</a>
                 <div class="list-group mt-3 text-start">
                     <span class="list-group-item list-group-item green-primary text-white fw-bold" aria-current="true">
                       Tugas Anda 
@@ -92,20 +98,6 @@
         </div>
     </div>
 
-    <div class="col-md-8">
-        <div class="card border-0 shadow rounded">
-            <div class="card-body">
-                Selamat Datang <strong>{{ auth()->user()->name }}</strong>
-                <hr>
-                <a href="{{ route('logout') }}" style="cursor: pointer" onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();" class="btn btn-md btn-primary">LOGOUT</a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
-        </div>
-    </div>
-
     <div class="modal fade" tabindex="-1" id="modalDelete">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -119,7 +111,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <a href="#" onclick="taskDelete()" id="buttonDelete" class="btn btn-primary">Hapus</a>
+              <a href="#" onclick="taskDelete()" id="buttonDelete" class="btn btn-danger">Hapus</a>
             </div>
           </div>
         </div>
