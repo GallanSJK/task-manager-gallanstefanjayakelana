@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TasksController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +19,10 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
+    Route::controller(TasksController::class)->group(function () {
+        // with fortify auth middleware
+        Route::get('home', 'index') ->middleware(['auth']); // fortify auth middleware
 
-    // with fortify auth middleware
-    Route::get('home', function () {
-        return view('home');
-    }) ->middleware(['auth']); // fortify auth middleware
-
+    });
+    
 });
